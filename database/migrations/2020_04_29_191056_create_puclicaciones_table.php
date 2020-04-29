@@ -17,7 +17,7 @@ class CreatePuclicacionesTable extends Migration
             $table->id();
             $table->string('image_path');
             $table->string('titulo_publicacion');
-            $table->string('contenido');
+            $table->text('contenido');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
