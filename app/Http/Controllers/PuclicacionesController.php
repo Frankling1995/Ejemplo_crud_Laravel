@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Puclicaciones;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class PuclicacionesController extends Controller
 {
@@ -24,7 +26,7 @@ class PuclicacionesController extends Controller
      */
     public function create()
     {
-        //
+        return view('Administrador.createP');
     }
 
     /**
@@ -35,7 +37,20 @@ class PuclicacionesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $publication= new Puclicaciones;  
+        $image_path=$request->file('files');
+        if ($image_path) {
+            $image_path_name=time().$image_path->getClientOriginalName();
+            Storage::disk('publication')->put($image_path_name,File::get($image_path));
+        }
+        $values=[
+            'image_path'=> $image_path_name,
+            'titulo_publicacion'=> $request->input('tittle'),
+            'contenido'=> $request->input('Content'),             
+            'user_id'=>$request->input('id_user')
+                ]   ;
+        $publication->create($values);
+        return  redirect()->route('Pcrear')->with(['message'=>'Datos guardados Satisfactoriamente ']);
     }
 
     /**

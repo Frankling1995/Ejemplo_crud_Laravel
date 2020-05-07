@@ -13,15 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/', 'Pagecontroller@index');
 
 
 
 Route::group(['prefix' => 'Administrador'], function () {
 Auth::routes();
+Route::get('/', 'HomeController@index')->name('gestion');
+Route::get('/crearP', 'PuclicacionesController@create')->name('Pcrear');
+Route::post('/saveP', 'PuclicacionesController@store')->name('Psave');
 
-Route::get('/', 'HomeController@index')->name('home');
-    
 });
