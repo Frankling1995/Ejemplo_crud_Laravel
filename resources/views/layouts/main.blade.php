@@ -52,7 +52,7 @@
                   <li><a><i class="fa fa-edit"></i> PUBLICACIONES <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{route('Pcrear')}}">Crear Publicacion</a></li>
-                      <li><a href="form_advanced.html">Editar Publicacion</a></li>
+                      <li><a href="{{route('Pedit')}}">Editar Publicacion</a></li>
                       <li><a href="form_validation.html">Eliminar Publicacion</a></li>
                       
                     </ul>

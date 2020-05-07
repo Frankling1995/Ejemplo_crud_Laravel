@@ -6,7 +6,7 @@ use App\Puclicaciones;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
-
+use Illuminate\Http\Response;
 class PuclicacionesController extends Controller
 {
     /**
@@ -70,10 +70,20 @@ class PuclicacionesController extends Controller
      * @param  \App\Puclicaciones  $puclicaciones
      * @return \Illuminate\Http\Response
      */
-    public function edit(Puclicaciones $puclicaciones)
+    public function edit(Request $request)
     {
-        //
+        $titulo=$request->input('titulo');
+        $publicaciones= Puclicaciones::orderBy('id','DESC')->titulo($titulo)->paginate(2);
+
+
+        return view('Administrador.editP',compact('publicaciones'));
     }
+
+    public function formedit(Puclicaciones $publicacion)
+    {
+       return view('Administrador.editF',compact('publicacion'));
+    }
+
 
     /**
      * Update the specified resource in storage.
@@ -82,9 +92,25 @@ class PuclicacionesController extends Controller
      * @param  \App\Puclicaciones  $puclicaciones
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Puclicaciones $puclicaciones)
+    public function update(Request $request, Puclicaciones $publicacion)
     {
-        //
+        $image_path=$request->file('files');
+        if ($image_path==null) {
+            $publicacion->titulo_publicacion= $request->input('tittle');
+            $publicacion->contenido=$request->input('Content');
+            $publicacion->save();
+        } else {
+            $publicacion->titulo_publicacion= $request->input('tittle');
+            $publicacion->contenido=$request->input('Content');
+            if ($image_path) {
+                $image_path_name=time().$image_path->getClientOriginalName();
+                Storage::disk('publication')->put($image_path_name,File::get($image_path));
+            }
+            $publicacion->image_path=$image_path_name;
+            $publicacion->save();
+        }
+        
+        return  redirect()->route('FPedit',$publicacion)->with(['message'=>'Datos actualizados Satisfactoriamente ']);
     }
 
     /**
@@ -97,4 +123,12 @@ class PuclicacionesController extends Controller
     {
         //
     }
+
+
+
+    public function getImage($filename){
+        $file=Storage::disk('publication')->get($filename);
+        return new Response($file,200);
+    }
+
 }

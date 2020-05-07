@@ -20,4 +20,14 @@ class Puclicaciones extends Model
         return $this->belongsTo('App\User','user_id');
     }
 
+    //scope
+
+    public function scopeTitulo($query,$titulo)
+    {
+        if($titulo)
+        return $query->where('titulo_publicacion','LIKE',"%$titulo%");
+    }
+
+    
+
 }
