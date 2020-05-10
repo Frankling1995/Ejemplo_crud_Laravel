@@ -16,9 +16,12 @@
                       
                   @endif
                     <form method="POST" action="{{route('Psave')}}" enctype="multipart/form-data">
-                        @csrf                      
-                    <input type="hidden" class="form-control" id="id_publication" name="id_user" placeholder="" value=" {{ Auth::user()->id}}">
-                          
+                        @csrf    
+                        
+                        <input type="hidden" class="form-control" id="id_publication" name="id_user" placeholder="" value=" {{ Auth::user()->id}}">
+                        
+                    
+                        
                             
                               <div class="form-group">
                               <label for="exampleFormControlFile1">Imagen</label>
@@ -40,7 +43,7 @@
                             <textarea class="form-control" id="content"  name="Content" rows="20"></textarea>
                           </div>
                       
-                           <input type="submit" value="subir" class="btn btn-primary">
+                        <input type="submit" value="subir" class="btn btn-primary">
                     
 
 

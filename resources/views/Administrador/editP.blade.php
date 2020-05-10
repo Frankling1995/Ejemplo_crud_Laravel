@@ -27,6 +27,7 @@
                             <tr>
                                 <th>IMAGEN</th>
                                 <th>Contenido</th>
+                                <th>Eliminar</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -38,6 +39,11 @@
                                 <br>
                                 <img src="{{route('image',['filename'=>$publicacion->image_path])}}" alt="" width="200"></td>
                             <td>{!! $publicacion->contenido !!}</td>
+                            <td><form action="{{route('Pdelete',$publicacion)}}" method="POST">
+                                @csrf
+                                 @method('delete')
+                                 <input type="submit" value="Eliminar" class="btn btn-danger" onclick=" return confirm('¿Seguro deseas eliminar este post?')">
+                            </form></td>
                             </tr> 
                             @endforeach
                             

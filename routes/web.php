@@ -15,18 +15,22 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', 'Pagecontroller@index');
-
-
-
-Route::group(['prefix' => 'Administrador'], function () {
-Auth::routes();
-Route::get('/', 'HomeController@index')->name('gestion');
-Route::get('/crearP', 'PuclicacionesController@create')->name('Pcrear');
-Route::post('/saveP', 'PuclicacionesController@store')->name('Psave');
-Route::get('/editP', 'PuclicacionesController@edit')->name('Pedit');
-Route::get('FeditP/{publicacion}', 'PuclicacionesController@formedit')->name('FPedit');
-Route::put('users/{publicacion}','PuclicacionesController@update')->name('Pupdate');
-Route::get('/editP/image/{filename}', 'PuclicacionesController@getImage')->name('image');
-});
-
 Route::get('publication/image/{filename}', 'PuclicacionesController@getImage')->name('image2');
+
+
+    Route::group(['prefix' => 'Administrador'], function () {
+        Auth::routes();
+        Route::get('/', 'HomeController@index')->name('gestion');
+        Route::get('/crearP', 'PuclicacionesController@create')->name('Pcrear');
+        Route::post('/saveP', 'PuclicacionesController@store')->name('Psave');
+        Route::get('/editP', 'PuclicacionesController@edit')->name('Pedit');
+        Route::get('FeditP/{publicacion}', 'PuclicacionesController@formedit')->name('FPedit');
+        Route::put('update/{publicacion}','PuclicacionesController@update')->name('Pupdate');
+        Route::get('/editP/image/{filename}', 'PuclicacionesController@getImage')->name('image');
+        Route::delete('/delete/{publicacion}','PuclicacionesController@destroy')->name('Pdelete');
+        });
+    
+
+
+
+

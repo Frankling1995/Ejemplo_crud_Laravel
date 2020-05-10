@@ -9,6 +9,14 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Http\Response;
 class PuclicacionesController extends Controller
 {
+
+    public function __construct()
+    {
+    $this->middleware('auth',['except'=>['show','index']]);
+    }
+
+
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +24,7 @@ class PuclicacionesController extends Controller
      */
     public function index()
     {
-        //
+        return 'index';
     }
 
     /**
@@ -26,6 +34,7 @@ class PuclicacionesController extends Controller
      */
     public function create()
     {
+        
         return view('Administrador.createP');
     }
 
@@ -37,6 +46,7 @@ class PuclicacionesController extends Controller
      */
     public function store(Request $request)
     {
+       
         $publication= new Puclicaciones;  
         $image_path=$request->file('files');
         if ($image_path) {
@@ -72,6 +82,7 @@ class PuclicacionesController extends Controller
      */
     public function edit(Request $request)
     {
+    
         $titulo=$request->input('titulo');
         $publicaciones= Puclicaciones::orderBy('id','DESC')->titulo($titulo)->paginate(2);
 
@@ -81,6 +92,7 @@ class PuclicacionesController extends Controller
 
     public function formedit(Puclicaciones $publicacion)
     {
+        
        return view('Administrador.editF',compact('publicacion'));
     }
 
@@ -119,9 +131,11 @@ class PuclicacionesController extends Controller
      * @param  \App\Puclicaciones  $puclicaciones
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Puclicaciones $puclicaciones)
+    public function destroy(Puclicaciones $publicacion)
     {
-        //
+        
+    $publicacion->delete();
+    return  redirect()->route('Pedit');
     }
 
 

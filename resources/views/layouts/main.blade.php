@@ -36,7 +36,10 @@
             
             <div class="profile_info">
                 <span>Bienvenido</span>
+                @if (Auth::user())
                 <h2> {{ Auth::user()->name }}</h2>
+                @endif
+                
             </div>
             </div>
             <!-- /menu profile quick info -->
@@ -53,8 +56,7 @@
                     <ul class="nav child_menu">
                       <li><a href="{{route('Pcrear')}}">Crear Publicacion</a></li>
                       <li><a href="{{route('Pedit')}}">Editar Publicacion</a></li>
-                      <li><a href="form_validation.html">Eliminar Publicacion</a></li>
-                      
+                                            
                     </ul>
                   </li>
                   <li><a><i class="fa fa-desktop"></i>MULTIMEDIA <span class="fa fa-chevron-down"></span></a>
@@ -87,7 +89,11 @@
               <ul class=" navbar-right">
                 <li class="nav-item dropdown open" style="padding-left: 15px;">
                   <a href="#" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                    {{ Auth::user()->name }}
+                    @if (Auth::user())
+                {{ Auth::user()->name }}
+                @endif
+                   
+                   
                   </a>
                   <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item"  href="javascript:;">Mis publicaciones</>
